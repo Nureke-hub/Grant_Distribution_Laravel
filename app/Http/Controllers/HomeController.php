@@ -18,25 +18,26 @@ class HomeController extends Controller
         return view('contacts');
     }
     public function results(){
-        error_log("HEllo bitch");
-        error_log(isset($winners));
-
-        $student = DB::table('users')->where('id', Auth::id())->first();
-
+        $students =[];
         $winners = Winners::all();
+        $prof_univers = [];
+        $professions = [];
 
-        $text = '';
-        if(isset($winners)){
-            $winner = DB::table('winners')->where('user_id', $student->id)->first();
-            if(isset($winner)){
-                $text = "Congratulations you won a grant!";
-            }else{
-                $text = "Unfortunately, you are not included in the list of grant holders.";
-            }
-            return view('results', ['student'=>$student,'winners'=>$winners, 'winner'=>$winner, 'text'=>$text]);
-        }else{
-            $text = 'Results not released yet';
-            return view('results', ['student'=>$student, 'text'=>$text]);
+        foreach ($winners as $winner){
+            array_push($students, DB::table('users')->where('id', $winner->user_id)->first());
+            array_push($prof_univers, DB::table('prof_univers')->where('id', $winner->prof_univer_id)->first());
         }
+
+        foreach($prof_univers as $prof_univer) {
+            array_push($professions, DB::table('professions')->where('id', $prof_univer->prof_id)->first());
+        }
+
+
+        return view('results', ['students'=>$students, 'winners'=>$winners, 'professions'=>$professions, 'prof_univers'=>$prof_univers]);
+    }
+
+    public function instruction(){
+        return view('instruction');
     }
 }
+

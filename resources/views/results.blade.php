@@ -8,27 +8,40 @@
 <body>
 @include('templates/navbar')
 
-<div class="container" style ="background-color: #DCDCDC">
+<div class="container" style ="background-color: #DCDCDC;">
 
-    @include('templates/menu')
+    <table class="table table-hover">
+        <thead style="text-align: center" class="thead-dark">
+        <tr>
+            <th scope="col">User id</th>
+            <th scope="col">User full name</th>
+            <th scope="col">Profession</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody style="text-align: center">
+        @foreach($students as $student)
+            @foreach($winners as $winner)
+                    @if($winner->user_id == $student->id)
+                        @foreach($prof_univers as $prof_univer)
+                            @if($prof_univer->id == $winner->prof_univer_id)
+                                @foreach($professions as $profession)
+                                    @if($prof_univer->prof_id == $profession->id)
+                                        <tr>
+                                            <th scope="row">{{$student->id}}</th>
+                                            <td>{{$student->full_name}}</td>
+                                            <td>{{$profession->name}}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                    @endif
+            @endforeach
+        @endforeach
+        </tbody>
+    </table>
 
-    <div class = "mt-4"style="float:right; width: 800px; border: 1px solid lightgrey;">
-        <div class = "mt-4"style="float:right; width: 800px; border: 1px solid lightgrey;">
-            <div class="pl-4 pr-4 pt-4">
-                <h2 class="display-5" style="text-align: center">{{$student->full_name}}</h2>
-                <h2 class="display-5" style="text-align: center; color: red">{{$text}}</h2>
-                @if(isset($winner))
-                    <img src="img/Winners-pana.png" style="height: 100%;">
-                @endif
-                @if($winner==null && $winners ==null)
-                    <img src="img/no_data.png" style="height: 100%;">
-                @endif
-                @if($winner==null && $winners !=null)
-                    <img src="img/Feeling sorry-bro.png" style="height: 100%;">
-                @endif
-            </div>
-        </div>
-    </div>
 </div>
 
 </body>

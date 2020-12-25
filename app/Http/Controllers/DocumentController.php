@@ -36,12 +36,12 @@ class DocumentController extends Controller
     }
 
 
-    public function viewOther()
-    {
+    public function viewOther(){
         $data = DB::table('users')->where('id', Auth::id())->first();
         return view('docOther')->with( compact('data')) ;
 
     }
+
 
 
 }

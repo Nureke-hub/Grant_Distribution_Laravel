@@ -23,6 +23,18 @@
                     <form action="/editName" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{ Auth::id()}}" name="id">
+                        @if(Session::has('danger'))
+                            <div class="alert alert-danger" role="alert">
+                                {{Session::get('danger')}}
+                            </div>
+
+                        @endif
+                        @if(Session::has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{Session::get('success')}}
+                            </div>
+
+                        @endif
 
                     <div class="form-row">
                         <div class="form-group col">
@@ -80,6 +92,18 @@
                     <input type="hidden" value="{{ Auth::id()}}" name="user_id">
                 <div class="form-group col-md-6">
                     <h4 style="text-align: center">Datas for identification</h4>
+                    @if(Session::has('danger1'))
+                        <div class="alert alert-danger" role="alert">
+                            {{Session::get('danger1')}}
+                        </div>
+
+                    @endif
+                    @if(Session::has('success1'))
+                        <div class="alert alert-success" role="alert">
+                            {{Session::get('success1')}}
+                        </div>
+
+                    @endif
 
                     <label for="inputCity">IIN</label>
                     <input type="number" class="form-control" name="iin" id="inputCity"
@@ -150,6 +174,18 @@
                 <form action="/editSchoolCerteficate" method="POST" enctype="multipart/form-data">
                     @csrf
                 <h4 class="pt-3 pb-3" style="text-align: center">Datas of school certifcation</h4>
+                    @if(Session::has('danger2'))
+                        <div class="alert alert-danger" role="alert">
+                            {{Session::get('danger2')}}
+                        </div>
+
+                    @endif
+                    @if(Session::has('success2'))
+                        <div class="alert alert-success" role="alert">
+                            {{Session::get('success2')}}
+                        </div>
+
+                    @endif
                 <div class="form-group row">
                     <label for="inputPassword" class="col col-form-label">Avarage of certifacation</label>
                     <div class="col">
@@ -196,8 +232,8 @@
                         <label class="custom-control-label" for="customRadioInline2">Red certificate </label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="customRadioInline2"  value="blue" name="type" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadioInline2">Blue certificate </label>
+                        <input type="radio" id="customRadioInline3"  value="blue" name="type" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadioInline3">Blue certificate </label>
                     </div>
                 </div>
                     @if($sch_cer && $sch_cer->file)
@@ -237,9 +273,15 @@
             <form action="/editENTCerteficate" method="POST" enctype="multipart/form-data">
                 @csrf
             <h4 class="pt-3 pb-3" style="text-align: center">ENT</h4>
-                @if(Session::has('danger'))
+                @if(Session::has('danger3'))
                     <div class="alert alert-danger" role="alert">
-                        {{Session::get('danger')}}
+                        {{Session::get('danger3')}}
+                    </div>
+
+                @endif
+                @if(Session::has('success3'))
+                    <div class="alert alert-success" role="alert">
+                        {{Session::get('success3')}}
                     </div>
 
                 @endif

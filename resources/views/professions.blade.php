@@ -24,7 +24,6 @@
             <th scope="col">Code</th>
             <th scope="col">Count of Grant</th>
             <th scope="col">Count of quota</th>
-
         </tr>
         </thead>
         <tbody>

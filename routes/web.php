@@ -88,7 +88,8 @@ Route::get('/status', [ProfilleController::class, 'status'])->name('status');
 Route::get('/messages', [ProfilleController::class, 'messages'])->name('messages');
 Route::get('/results', [HomeController::class, 'results'])->name('results');
 
-
+Route::get('/instruction', [HomeController::class, 'instruction'])->name('instruction');
+Route::get('/algorithm', [AdminController::class, 'algorithm'])->name('algorithm');
 
 //Ajax
 Route::get('/get_profs', [ProfilleController::class, 'get_profs']);

@@ -14,25 +14,30 @@
 
     <div class = "mt-4"style="float:right; width: 800px; border: 1px solid lightgrey;">
         <div class = "mt-4"style="float:right; width: 800px; border: 1px solid lightgrey;">
-            <div class="pl-4 pr-4 pt-4">
-                <h2 class="display-5" style="text-align: center">{{$student->full_name}}</h2>
-            </div>
             <div style="text-align: center;">
-                @if(!($student->isChecked) && ($student->feadback)==null)
-                    <h2 style="color: red;">For consideration</h2>
-                    <img src="img/inprocess.png" style="height: 100%;">
-                @endif
+                @if($winners != null)
+                    <h2 class="display-5" style="text-align: center">{{$student->full_name}}</h2>
+                    <h2 class="display-5" style="text-align: center; color: red">{{$text}}</h2>
+                    @if($winner != null)
+                        <img src="img/Winners-pana.png" style="height: 100%;">
+                    @else
+                        <img src="img/Feeling sorry-bro.png" style="height: 100%;">
+                    @endif
+                @else
+                    @if(!($student->isChecked) && ($student->feadback)==null)
+                        <h2 style="color: red;">For consideration</h2>
+                        <img src="img/inprocess.png" style="height: 100%;">
+                    @endif
+                    @if(!($student->isChecked) && ($student->feadback)!=null)
+                        <h2 style="color: red;">The admissions committee did not accept your application, check your messages, it will indicate which documents to correct.</h2>
+                        <img src="img/Warning-pana.png" style="height: 100%;">
+                    @endif
 
-                @if(!($student->isChecked) && ($student->feadback)!=null)
-                    <h2 style="color: red;">The admissions committee did not accept your application, check your messages, it will indicate which documents to correct.</h2>
-                    <img src="img/Warning-pana.png" style="height: 100%;">
+                    @if($student->isChecked)
+                        <h2 style="color: red;">Congratulations, your documents are correct and the selection committee has accepted your application. Wait for the results of the competition.</h2>
+                        <img src="img/Ok-amico.png" style="height: 100%;">
+                    @endif
                 @endif
-
-                @if($student->isChecked)
-                    <h2 style="color: red;">Congratulations, your documents are correct and the selection committee has accepted your application. Wait for the results of the competition.</h2>
-                    <img src="img/Ok-amico.png" style="height: 100%;">
-                @endif
-
             </div>
         </div>
     </div>

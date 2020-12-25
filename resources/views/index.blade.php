@@ -17,41 +17,60 @@
             <div class="slider__item">
                 <div class="slider__item-content">
                     <div class="slider__title">
-                        Lorem ipsum dolor sit amet
+                        International IT University
                     </div>
                     <div class="slider__text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        IITU is the only University in Kazakhstan to receive ASIIN institutional international accreditation in 2019 and undergo a formal confirmation of compliance with international standards.
                     </div>
+                    @if(Auth::check())
+                        <a href="{{route('choice')}}"  class="slider__btn  default-btn" style="background-color:transparent; color: white">
+                            Подать  заявку на грант
+                        </a>
+                    @else
+                        <button type="button" class="slider__btn  default-btn" style="background-color:transparent; "data-toggle="modal" data-target="#exampleModal">
+                            Подать  заявку на грант
+                        </button>
+                    @endif
 
-                    <button type="button" class="slider__btn  default-btn" style="background-color:transparent; "data-toggle="modal" data-target="#exampleModal">
-                        Подать  заявку на грант
-                    </button>
+
                 </div>
             </div>
             <div class="slider__item">
                 <div class="slider__item-content">
                     <div class="slider__title">
-                        Lorem ipsum dolor sit amet
+                        International IT University
                     </div>
                     <div class="slider__text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        IITU is the only University in Kazakhstan to receive ASIIN institutional international accreditation in 2019 and undergo a formal confirmation of compliance with international standards.
                     </div>
-                    <button type="button" class="slider__btn  default-btn" style="background-color:transparent; "data-toggle="modal" data-target="#exampleModal">
-                        Подать  заявку на грант
-                    </button>
+                    @if(Auth::check())
+                        <a href="{{route('choice')}}"  class="slider__btn  default-btn" style="background-color:transparent; color: white">
+                            Подать  заявку на грант
+                        </a>
+                    @else
+                        <button type="button" class="slider__btn  default-btn" style="background-color:transparent; "data-toggle="modal" data-target="#exampleModal">
+                            Подать  заявку на грант
+                        </button>
+                    @endif
                 </div>
             </div>
             <div class="slider__item">
                 <div class="slider__item-content">
                     <div class="slider__title">
-                        Lorem ipsum dolor sit amet
+                        International IT University
                     </div>
                     <div class="slider__text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        IITU is the only University in Kazakhstan to receive ASIIN institutional international accreditation in 2019 and undergo a formal confirmation of compliance with international standards.
                     </div>
-                    <button type="button" class="slider__btn  default-btn" style="background-color:transparent; "data-toggle="modal" data-target="#exampleModal">
-                        Подать  заявку на грант
-                    </button>
+                    @if(Auth::check())
+                        <a href="{{route('choice')}}"  class="slider__btn  default-btn" style="background-color:transparent; color: white">
+                            Подать  заявку на грант
+                        </a>
+                    @else
+                        <button type="button" class="slider__btn  default-btn" style="background-color:transparent; "data-toggle="modal" data-target="#exampleModal">
+                            Подать  заявку на грант
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -71,7 +90,7 @@
         <div class="about__top">
             <div class="about__title-box">
                 <div class="about-title">
-                    Lorem ipsum
+                    IITU
                 </div>
                 <div class="about-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -79,7 +98,7 @@
             </div>
             <div class="about__btn">
                 <a href="#" >
-                    Lorem ipsum
+                   IITU
                 </a>
             </div>
         </div>
@@ -87,7 +106,7 @@
             <div class="about__item">
                 <img src="img/aboot_item-1.png" alt="">
                 <div class="about__item-title">
-                    dolor sit amet
+                    IITU
                 </div>
                 <div class="about__item-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Profession;
 use App\Models\ProfUniver;
 use App\Models\University;
+use App\Models\Winners;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -43,6 +44,13 @@ class ProfilleController extends Controller
         else{
             $gender = false;
         }
+        if($request -> input('full_name')==null||
+            $request->file('file')==null
+        ){
+            return redirect()
+                -> route('profile')
+                -> with('danger','Enter all datas ');
+        }
         $image =$request->file('file');
         $imageName =time().'.'.$image->extension();
         $image->move(public_path('documents'),$imageName);
@@ -53,9 +61,98 @@ class ProfilleController extends Controller
                     'photo' =>$imageName
                 )
             );
-        return redirect()->route('profile');
+        return  redirect()->route('profile') -> with('success',' Success input datas');
     }
 
+
+    public function postUdastak(Request $request){
+        if( $request -> input('nationality')==null||
+            $request->file('file')==null||
+            $request -> input('iin')==null ||
+            $request -> input('birth_date')==null||
+            $request -> input('by_whom') == null
+
+        ){
+            return redirect()
+                -> route('profile')
+                -> with('danger1','Enter all datas ');
+        }
+        $udastak = DB::table('udastaks')->where('user_id', Auth::id())->first();
+        $image =$request->file('file');
+        $imageName =time().'.'.$image->extension();
+        $image->move(public_path('documents'),$imageName);
+        if($udastak){
+            DB::table('udastaks')
+                ->where('user_id', Auth::id())
+                ->update(array('iin' =>$request -> input('iin'),
+                        'birth_date' =>$request -> input('birth_date'),
+                        'by_whom' =>$request -> input('by_whom'),
+                        'file' =>$imageName,
+                        'nationality'=> $request -> input('nationality')
+                    )
+                );
+        }
+        else{
+            udastak::create([
+                    'iin' =>$request -> input('iin'),
+                    'birth_date' =>$request -> input('birth_date'),
+                    'by_whom' =>$request -> input('by_whom'),
+                    'file' =>$imageName,
+                    'nationality'=> $request -> input('nationality'),
+                    'user_id'=>Auth::id()
+                ]
+            );
+        }
+        return   redirect()->route('profile') -> with('success1',' Success input datas');
+
+
+    }
+    public function postSchCer(Request  $request){
+
+        if($request -> input('avarage_point')==null ||
+            $request -> input('type') == null ||
+            $request -> input('school_name')==null||
+            $request -> input('graduation_year') == null||
+            $request -> input('region') == null||
+            $request->file('file')==null
+        ){
+            return redirect()
+                -> route('profile')
+                -> with('danger2','Enter all datas ');
+        }
+        $school_certeficates = DB::table('school_certeficates')->where('user_id', Auth::id())->first();
+        $image =$request->file('file');
+        $imageName =time().'.'.$image->extension();
+        $image->move(public_path('documents'),$imageName);
+        if($school_certeficates){
+            DB::table('school_certeficates')
+                ->where('user_id', Auth::id())
+                ->update(array('avarage_point' =>$request -> input('avarage_point'),
+                        'type' =>$request -> input('type'),
+                        'school_name' =>$request -> input('school_name'),
+                        'graduation_year' =>$request -> input('graduation_year'),
+                        'region' =>$request -> input('region'),
+                        'file' =>$imageName,
+                        'user_id'=>Auth::id()
+
+                    )
+                );
+        }
+        else{
+            School_certeficate::create([
+                    'avarage_point' =>$request -> input('avarage_point'),
+                    'type' =>$request -> input('type'),
+                    'school_name' =>$request -> input('school_name'),
+                    'graduation_year' =>$request -> input('graduation_year'),
+                    'region' =>$request -> input('region'),
+                    'file' =>$imageName,
+                    'user_id'=>Auth::id()
+
+                ]
+            );
+        }
+        return redirect()->route('profile') -> with('success2',' Success input datas');
+    }
 
     public function postOtherDoc(Request $request){
 
@@ -66,7 +163,6 @@ class ProfilleController extends Controller
             $doc1Name = time() . '.' . $doc1->extension();
 
             $doc1->move(public_path('documents'), $doc1Name);
-
 
         }
         if($request->file('063')) {
@@ -116,78 +212,12 @@ class ProfilleController extends Controller
 
     }
 
-    public function postUdastak(Request $request){
-        $udastak = DB::table('udastaks')->where('user_id', Auth::id())->first();
-        $image =$request->file('file');
-        $imageName =time().'.'.$image->extension();
-        $image->move(public_path('documents'),$imageName);
-        if($udastak){
-            DB::table('udastaks')
-                ->where('user_id', Auth::id())
-                ->update(array('iin' =>$request -> input('iin'),
-                        'birth_date' =>$request -> input('birth_date'),
-                        'by_whom' =>$request -> input('by_whom'),
-                        'file' =>$imageName,
-                        'nationality'=> $request -> input('nationality')
-                    )
-                );
-        }
-        else{
-            udastak::create([
-                    'iin' =>$request -> input('iin'),
-                    'birth_date' =>$request -> input('birth_date'),
-                    'by_whom' =>$request -> input('by_whom'),
-                    'file' =>$imageName,
-                    'nationality'=> $request -> input('nationality'),
-                    'user_id'=>Auth::id()
-                ]
-            );
-        }
-        return  redirect()->route('profile');
-
-
-    }
-    public function postSchCer(Request  $request){
-        $school_certeficates = DB::table('school_certeficates')->where('user_id', Auth::id())->first();
-        $image =$request->file('file');
-        $imageName =time().'.'.$image->extension();
-        $image->move(public_path('documents'),$imageName);
-        if($school_certeficates){
-            DB::table('school_certeficates')
-                ->where('user_id', Auth::id())
-                ->update(array('avarage_point' =>$request -> input('avarage_point'),
-                        'type' =>$request -> input('type'),
-                        'school_name' =>$request -> input('school_name'),
-                        'graduation_year' =>$request -> input('graduation_year'),
-                        'region' =>$request -> input('region'),
-                        'file' =>$imageName,
-                        'user_id'=>Auth::id()
-
-                    )
-                );
-        }
-        else{
-            School_certeficate::create([
-                    'avarage_point' =>$request -> input('avarage_point'),
-                        'type' =>$request -> input('type'),
-                        'school_name' =>$request -> input('school_name'),
-                        'graduation_year' =>$request -> input('graduation_year'),
-                        'region' =>$request -> input('region'),
-                        'file' =>$imageName,
-                        'user_id'=>Auth::id()
-
-                ]
-            );
-        }
-        return  redirect()->route('profile');
-    }
-
     public function postENTCer(Request $request){
         if($request -> input('reading')==null || $request -> input('math')==null||
-        $request -> input('history')==null ||$request -> input('subject_1_point')==null ||$request -> input('subject_2_point')==null ){
+            $request -> input('history')==null ||$request -> input('subject_1_point')==null ||$request -> input('subject_2_point')==null ){
             return redirect()
                 -> route('profile')
-                -> with('danger','Enter all datas ');
+                -> with('danger3','Enter all datas ');
         }
 
         $total =$request -> input('reading') +$request -> input('math')+$request -> input('history')+$request -> input('subject_1_point')+$request -> input('subject_2_point');
@@ -217,24 +247,24 @@ class ProfilleController extends Controller
                 );
         }
         else{
-           ENT::create([
-                   'reading' =>$request -> input('reading'),
-                   'math' =>$request -> input('math'),
-                   'history' =>$request -> input('history'),
-                   'subject_1_name' =>$request -> input('subject_1_name'),
-                   'subject_2_name' =>$request -> input('subject_2_name'),
-                   'subject_1_point' =>$request -> input('subject_1_point'),
-                   'subject_2_point' =>$request -> input('subject_2_point'),
-                   'total' =>$total,
-                   'tjk' =>$request -> input('tjk'),
-                   'language' =>$request -> input('language'),
-                   'file' =>$imageName,
-                   'user_id'=>Auth::id()
+            ENT::create([
+                    'reading' =>$request -> input('reading'),
+                    'math' =>$request -> input('math'),
+                    'history' =>$request -> input('history'),
+                    'subject_1_name' =>$request -> input('subject_1_name'),
+                    'subject_2_name' =>$request -> input('subject_2_name'),
+                    'subject_1_point' =>$request -> input('subject_1_point'),
+                    'subject_2_point' =>$request -> input('subject_2_point'),
+                    'total' =>$total,
+                    'tjk' =>$request -> input('tjk'),
+                    'language' =>$request -> input('language'),
+                    'file' =>$imageName,
+                    'user_id'=>Auth::id()
 
                 ]
             );
         }
-        return  redirect()->route('profile') -> with('danger',' Success input datas');
+        return  redirect()->route('profile') -> with('success3',' Success input datas');
 
     }
 
@@ -266,7 +296,6 @@ class ProfilleController extends Controller
     public function get_profs()
     {
         try{
-
             $id = \request('univer_id');
             $professions = DB::table('professions')->whereIn('id', function ($query) {
                 $query-> select('prof_id')->from(with(new ProfUniver())->getTable())->where('univer_id', \request('univer_id'))->groupBy('univer_id');
@@ -275,7 +304,6 @@ class ProfilleController extends Controller
             foreach ($professions as $prof){
                 error_log($prof->name);
             }
-//            error_log("profession =".$professions);
             return response()->json(['professions'=>$professions]);
         } catch(\Exception $e){
             error_log($e);
@@ -338,9 +366,28 @@ class ProfilleController extends Controller
         return view('myChoices', ['universities'=>$universities, 'student'=>$student]);
     }
 
-    public function status(){
+    public function status()
+    {
         $student = DB::table('users')->where('id', Auth::id())->first();
-        return view('myStatus', ['student'=>$student]);
+
+        $winners = Winners::all();
+        $text = '';
+        if (sizeof($winners) != 0) {
+            error_log("I AM HEEREE");
+            error_log($winners);
+            error_log("AM");
+            $winner = DB::table('winners')->where('user_id', $student->id)->first();
+            if ($winner != null) {
+                $text = "Congratulations you won a grant!";
+            }else {
+                $text = "Unfortunately, you are not included in the list of grant holders.";
+            }
+            return view('myStatus', ['student' => $student, 'winners' => $winners, 'winner' => $winner, 'text' => $text]);
+        } else {
+            error_log("Winners jok eken");
+            $text = 'Results not released yet';
+            return view('myStatus', ['student' => $student, 'text' => $text, 'winners' => null, 'winner' => null]);
+        }
     }
 
     public function messages(){
